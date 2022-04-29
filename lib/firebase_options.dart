@@ -42,20 +42,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'test',
-    appId: 'test',
-    messagingSenderId: 'test',
-    projectId: 'flutter-fire-cli-test-project',
-    storageBucket: 'flutter-fire-cli-test-project.appspot.com',
+    apiKey: 'AIzaSyBdAX1Rb6nZivBSOF1Y2JnKVZA5zAUJw6c',
+    appId: '1:778921494224:android:7c01b36ae02b832d3c00d5',
+    messagingSenderId: '778921494224',
+    projectId: 'todoflutter-f6f15',
+    storageBucket: 'todoflutter-f6f15.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'test',
-    appId: 'test',
-    messagingSenderId: 'test',
-    projectId: 'flutter-fire-cli-test-project',
-    storageBucket: 'flutter-fire-cli-test-project.appspot.com',
-    iosClientId: 'test',
-    iosBundleId: 'com.example.flutterfireclitest',
+    apiKey: 'AIzaSyBn7sUnBhshS8_am0giKcdljigFF9jOGAU',
+    appId: '1:778921494224:ios:2dd45346bb1c31833c00d5',
+    messagingSenderId: '778921494224',
+    projectId: 'todoflutter-f6f15',
+    storageBucket: 'todoflutter-f6f15.appspot.com',
+    iosClientId: '778921494224-0td9bufevarnf14gucokctinnfr3b53f.apps.googleusercontent.com',
+    iosBundleId: 'com.example.asana',
   );
 }
