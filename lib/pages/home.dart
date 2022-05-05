@@ -8,11 +8,7 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-const STATE_TASK_DONE = "DONE";
-const STATE_TASK_ACTIVE = "ACTIVE";
-
 class Task {
-  String state = STATE_TASK_ACTIVE;
   String userTodo = '';
   String userPrice = '';
 
@@ -20,8 +16,6 @@ class Task {
 }
 
 class _HomeState extends State<Home> {
-  List<Task> todoList = [];
-
   @override
   Widget build(BuildContext context) {
     String _userTodo = '';
@@ -35,7 +29,6 @@ class _HomeState extends State<Home> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('items').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) return Text('no tasks');
           return ListView.builder(
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (BuildContext context, int index) {
@@ -46,25 +39,14 @@ class _HomeState extends State<Home> {
                       title: Text(snapshot.data!.docs[index].get('task') +
                           " " +
                           snapshot.data!.docs[index].get('price')),
-                      trailing: IconButton(
-                        icon: Icon(Icons.check,
-                            color: todoList[index].state == STATE_TASK_DONE
-                                ? Colors.green
-                                : Colors.red),
-                        onPressed: () {
-                          setState(() {
-                            if (todoList[index].state == STATE_TASK_DONE) {
-                              todoList[index].state = STATE_TASK_ACTIVE;
-                            } else {
-                              todoList[index].state = STATE_TASK_DONE;
-                            }
-                          });
-                        },
-                      ),
                     ),
                   ),
                   onDismissed: (direction) {
                     setState(() {
+                      FirebaseFirestore.instance
+                          .collection('dones')
+                          .doc(snapshot.data!.docs[index].id)
+                          .set({'task1': _userTodo, 'price1': _userPrice});
                       FirebaseFirestore.instance
                           .collection('items')
                           .doc(snapshot.data!.docs[index].id)
@@ -113,7 +95,7 @@ class _HomeState extends State<Home> {
                         onPressed: () {
                           FirebaseFirestore.instance
                               .collection('items')
-                              .add({'task': _userTodo, 'price': _userPrice});
+                              .add({'task': _userTodo, 'price': _userPrice, 'isDone': false});
                           Navigator.of(context).pop();
                         },
                         child: Text('Add'))

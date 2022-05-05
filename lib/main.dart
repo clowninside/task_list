@@ -1,4 +1,6 @@
+import 'package:asana_demo_2/pages/dones.dart';
 import 'package:asana_demo_2/pages/home.dart';
+import 'package:asana_demo_2/pages/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
@@ -12,6 +14,11 @@ void main() async {
     theme: ThemeData(
       primarySwatch: Colors.red,
     ),
-    home: Home(),
+    initialRoute: '/',
+    routes: {
+      '/': (context) => MainScreen(),
+      '/todo': (context) => Home(),
+      '/dones': (context) => DoneScreen(),
+    },
   ));
 }
