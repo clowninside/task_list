@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:asana_demo_2/firebase_options.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -24,21 +22,6 @@ class Task {
 class _HomeState extends State<Home> {
   List<Task> todoList = [];
 
-  void initFirebase() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    initFirebase();
-    todoList.add(Task('buy milk', "\$5.00"));
-    todoList.add(Task('rate app', "\$1.000.000"));
-  }
-
   @override
   Widget build(BuildContext context) {
     String _userTodo = '';
@@ -52,7 +35,7 @@ class _HomeState extends State<Home> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('items').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) return Text('no zapisi');
+          if (!snapshot.hasData) return Text('no tasks');
           return ListView.builder(
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (BuildContext context, int index) {
@@ -131,7 +114,6 @@ class _HomeState extends State<Home> {
                           FirebaseFirestore.instance
                               .collection('items')
                               .add({'task': _userTodo, 'price': _userPrice});
-
                           Navigator.of(context).pop();
                         },
                         child: Text('Add'))
