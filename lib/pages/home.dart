@@ -25,6 +25,17 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text('Task List'),
         centerTitle: true,
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/dones');
+              },
+              child: Icon(Icons.check_box),
+            ),
+          )
+        ],
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('items').snapshots(),
@@ -93,9 +104,11 @@ class _HomeState extends State<Home> {
                   actions: [
                     ElevatedButton(
                         onPressed: () {
-                          FirebaseFirestore.instance
-                              .collection('items')
-                              .add({'task': _userTodo, 'price': _userPrice, 'isDone': false});
+                          FirebaseFirestore.instance.collection('items').add({
+                            'task': _userTodo,
+                            'price': _userPrice,
+                            'isDone': false
+                          });
                           Navigator.of(context).pop();
                         },
                         child: Text('Add'))
