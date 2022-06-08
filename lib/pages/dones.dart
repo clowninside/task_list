@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class DoneScreen extends StatefulWidget {
   const DoneScreen({Key? key}) : super(key: key);
@@ -27,9 +27,11 @@ class _HomeState extends State<DoneScreen> {
                   key: Key(snapshot.data!.docs[index].id),
                   child: Card(
                     child: ListTile(
-                      title: Text(snapshot.data!.docs[index].get('task1') +
+                      title: Text(snapshot.data!.docs[index]
+                              .get('task1')
+                              .toString() +
                           " " +
-                          snapshot.data!.docs[index].get('price1')),
+                          snapshot.data!.docs[index].get('price1').toString()),
                     ),
                   ),
                   onDismissed: (direction) {

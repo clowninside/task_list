@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -8,18 +8,9 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class Task {
-  String userTodo = '';
-  String userPrice = '';
-
-  Task(this.userTodo, this.userPrice);
-}
-
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    String _userTodo = '';
-    String _userPrice = '';
     return Scaffold(
       backgroundColor: Colors.white38,
       appBar: AppBar(
@@ -47,9 +38,11 @@ class _HomeState extends State<Home> {
                   key: Key(snapshot.data!.docs[index].id),
                   child: Card(
                     child: ListTile(
-                      title: Text(snapshot.data!.docs[index].get('task') +
+                      title: Text(snapshot.data!.docs[index]
+                              .get('task')
+                              .toString() +
                           " " +
-                          snapshot.data!.docs[index].get('price')),
+                          snapshot.data!.docs[index].get('price').toString()),
                     ),
                   ),
                   onDismissed: (direction) {
@@ -57,7 +50,12 @@ class _HomeState extends State<Home> {
                       FirebaseFirestore.instance
                           .collection('dones')
                           .doc(snapshot.data!.docs[index].id)
-                          .set({'task1': _userTodo, 'price1': _userPrice});
+                          .set({
+                        'task1':
+                            snapshot.data!.docs[index].get('task').toString(),
+                        'price1':
+                            snapshot.data!.docs[index].get('price').toString()
+                      });
                       FirebaseFirestore.instance
                           .collection('items')
                           .doc(snapshot.data!.docs[index].id)
@@ -71,6 +69,8 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red,
         onPressed: () {
+          String _userTodo = '';
+          String _userPrice = '';
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -78,7 +78,7 @@ class _HomeState extends State<Home> {
                   title: Text('Add New Task'),
                   content: Column(
                     children: [
-                      TextField(
+                      TextFormField(
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: "Task Name",
@@ -88,7 +88,7 @@ class _HomeState extends State<Home> {
                           _userTodo = value;
                         },
                       ),
-                      TextField(
+                      TextFormField(
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: "Task Price",
