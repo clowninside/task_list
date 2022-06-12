@@ -1,16 +1,16 @@
+import 'package:asana_demo_2/firebase_options.dart';
 import 'package:asana_demo_2/pages/dones.dart';
 import 'package:asana_demo_2/pages/home.dart';
 import 'package:asana_demo_2/pages/main_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'firebase_options.dart';
 
 Future signInAnonymously() {
   return FirebaseAuth.instance.signInAnonymously();
 }
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -21,9 +21,9 @@ void main() async {
     ),
     initialRoute: '/',
     routes: {
-      '/': (context) => MainScreen(),
-      '/todo': (context) => Home(),
-      '/dones': (context) => DoneScreen(),
+      '/': (context) => const MainScreen(),
+      '/todo': (context) => const Home(),
+      '/dones': (context) => const DoneScreen(),
     },
-  ));
+  ),);
 }

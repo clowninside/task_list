@@ -14,7 +14,7 @@ class _HomeState extends State<DoneScreen> {
     return Scaffold(
       backgroundColor: Colors.white38,
       appBar: AppBar(
-        title: Text('Dones List'),
+        title: const Text('Dones List'),
         centerTitle: true,
       ),
       body: StreamBuilder(
@@ -27,11 +27,8 @@ class _HomeState extends State<DoneScreen> {
                   key: Key(snapshot.data!.docs[index].id),
                   child: Card(
                     child: ListTile(
-                      title: Text(snapshot.data!.docs[index]
-                              .get('task1')
-                              .toString() +
-                          " " +
-                          snapshot.data!.docs[index].get('price1').toString()),
+                      title: Text("${snapshot.data!.docs[index]
+                              .get('task1')} ${snapshot.data!.docs[index].get('price1')}",),
                     ),
                   ),
                   onDismissed: (direction) {
@@ -43,7 +40,7 @@ class _HomeState extends State<DoneScreen> {
                     });
                   },
                 );
-              });
+              },);
         },
       ),
     );

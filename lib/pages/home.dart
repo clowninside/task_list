@@ -14,16 +14,16 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Colors.white38,
       appBar: AppBar(
-        title: Text('Task List'),
+        title: const Text('Task List'),
         centerTitle: true,
         actions: <Widget>[
           Padding(
-            padding: EdgeInsets.only(right: 20.0),
+            padding: const EdgeInsets.only(right: 20.0),
             child: GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, '/dones');
               },
-              child: Icon(Icons.check_box),
+              child: const Icon(Icons.check_box),
             ),
           )
         ],
@@ -38,11 +38,8 @@ class _HomeState extends State<Home> {
                   key: Key(snapshot.data!.docs[index].id),
                   child: Card(
                     child: ListTile(
-                      title: Text(snapshot.data!.docs[index]
-                              .get('task')
-                              .toString() +
-                          " " +
-                          snapshot.data!.docs[index].get('price').toString()),
+                      title: Text("${snapshot.data!.docs[index]
+                              .get('task')} ${snapshot.data!.docs[index].get('price')}",),
                     ),
                   ),
                   onDismissed: (direction) {
@@ -63,7 +60,7 @@ class _HomeState extends State<Home> {
                     });
                   },
                 );
-              });
+              },);
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -75,25 +72,25 @@ class _HomeState extends State<Home> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: Text('Add New Task'),
+                  title: const Text('Add New Task'),
                   content: Column(
                     children: [
                       TextFormField(
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: "Task Name",
                             fillColor: Colors.black12,
-                            filled: true),
+                            filled: true,),
                         onChanged: (String value) {
                           _userTodo = value;
                         },
                       ),
                       TextFormField(
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: "Task Price",
                             fillColor: Colors.black12,
-                            filled: true),
+                            filled: true,),
                         onChanged: (String value) {
                           _userPrice = value;
                         },
@@ -111,12 +108,12 @@ class _HomeState extends State<Home> {
                           });
                           Navigator.of(context).pop();
                         },
-                        child: Text('Add'))
+                        child: const Text('Add'),)
                   ],
                 );
-              });
+              },);
         },
-        child: Icon(
+        child: const Icon(
           Icons.add,
           color: Colors.white,
         ),
